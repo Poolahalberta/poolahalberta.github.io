@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Programs | POOLAH</title>
+<title>Board | POOLAH</title>
 <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -129,8 +129,8 @@
       <nav class="hidden lg:flex gap-6 text-sm font-medium text-[var(--ink-900)]/80">
         <a href="index.html" class="navlink hover:text-[var(--terracotta-500)] transition"><span class="lang-en">Home</span><span class="lang-fr hidden">Accueil</span></a>
         <a href="organization.html" class="navlink hover:text-[var(--terracotta-500)] transition"><span class="lang-en">Our Organization</span><span class="lang-fr hidden">Notre Organisation</span></a>
-        <a href="programs.html" class="navlink current hover:text-[var(--terracotta-500)] transition"><span class="lang-en">Programs</span><span class="lang-fr hidden">Programmes</span></a>
-        <a href="board.html" class="navlink hover:text-[var(--terracotta-500)] transition"><span class="lang-en">Board</span><span class="lang-fr hidden">Bureau</span></a>
+        <a href="programs.html" class="navlink hover:text-[var(--terracotta-500)] transition"><span class="lang-en">Programs</span><span class="lang-fr hidden">Programmes</span></a>
+        <a href="board.html" class="navlink current hover:text-[var(--terracotta-500)] transition"><span class="lang-en">Board</span><span class="lang-fr hidden">Bureau</span></a>
         <a href="events.html" class="navlink hover:text-[var(--terracotta-500)] transition"><span class="lang-en">Events</span><span class="lang-fr hidden">Événements</span></a>
         <a href="getinvolved.html" class="navlink hover:text-[var(--terracotta-500)] transition"><span class="lang-en">Get Involved</span><span class="lang-fr hidden">Impliquez-Vous</span></a>
         <a href="contact.html" class="navlink hover:text-[var(--terracotta-500)] transition"><span class="lang-en">Contact</span><span class="lang-fr hidden">Contact</span></a>
@@ -150,8 +150,8 @@
       <nav class="flex flex-col px-4 sm:px-8 py-4 gap-4 text-sm font-medium text-[var(--ink-900)]/80">
         <a href="index.html" onclick="toggleMobileMenu()" class="navlink hover:text-[var(--terracotta-500)] transition"><span class="lang-en">Home</span><span class="lang-fr hidden">Accueil</span></a>
         <a href="organization.html" onclick="toggleMobileMenu()" class="navlink hover:text-[var(--terracotta-500)] transition"><span class="lang-en">Our Organization</span><span class="lang-fr hidden">Notre Organisation</span></a>
-        <a href="programs.html" onclick="toggleMobileMenu()" class="navlink current hover:text-[var(--terracotta-500)] transition"><span class="lang-en">Programs</span><span class="lang-fr hidden">Programmes</span></a>
-        <a href="board.html" onclick="toggleMobileMenu()" class="navlink hover:text-[var(--terracotta-500)] transition"><span class="lang-en">Board</span><span class="lang-fr hidden">Bureau</span></a>
+        <a href="programs.html" onclick="toggleMobileMenu()" class="navlink hover:text-[var(--terracotta-500)] transition"><span class="lang-en">Programs</span><span class="lang-fr hidden">Programmes</span></a>
+        <a href="board.html" onclick="toggleMobileMenu()" class="navlink current hover:text-[var(--terracotta-500)] transition"><span class="lang-en">Board</span><span class="lang-fr hidden">Bureau</span></a>
         <a href="events.html" onclick="toggleMobileMenu()" class="navlink hover:text-[var(--terracotta-500)] transition"><span class="lang-en">Events</span><span class="lang-fr hidden">Événements</span></a>
         <a href="getinvolved.html" onclick="toggleMobileMenu()" class="navlink hover:text-[var(--terracotta-500)] transition"><span class="lang-en">Get Involved</span><span class="lang-fr hidden">Impliquez-Vous</span></a>
         <a href="contact.html" onclick="toggleMobileMenu()" class="navlink hover:text-[var(--terracotta-500)] transition"><span class="lang-en">Contact</span><span class="lang-fr hidden">Contact</span></a>
@@ -165,48 +165,69 @@
       <div class="absolute inset-0 bg-gradient-to-r from-[var(--green-900)]/70 via-[var(--green-900)]/35 to-[var(--green-900)]/15"></div>
     </div>
     <div class="max-w-6xl mx-auto px-4 sm:px-8 relative z-10 header-text-shadow">
-      <p class="text-[var(--gold-400)] text-sm font-semibold tracking-wide mb-3"><span class="lang-en">What We Offer</span><span class="lang-fr hidden">Ce Que Nous Offrons</span></p>
-      <h1 class="font-display font-semibold text-4xl sm:text-5xl"><span class="lang-en">Our Community Programs</span><span class="lang-fr hidden">Nos Programmes Communautaires</span></h1>
+      <p class="text-[var(--gold-400)] text-sm font-semibold tracking-wide mb-3"><span class="lang-en">Leadership</span><span class="lang-fr hidden">Direction</span></p>
+      <h1 class="font-display font-semibold text-4xl sm:text-5xl"><span class="lang-en">Executive Bureau</span><span class="lang-fr hidden">Bureau Exécutif</span></h1>
     </div>
   </section>
 
-  <section class="py-16 lg:py-24 bg-[var(--cream-100)]">
+  <section class="py-16 lg:py-24">
     <div class="max-w-6xl mx-auto px-4 sm:px-8">
-      <div class="space-y-0">
-        <div class="grid grid-cols-1 sm:grid-cols-12 gap-6 py-8 border-t border-[var(--ink-900)]/15 items-start">
-          <div class="sm:col-span-4"><h3 class="font-display text-xl text-[var(--green-900)]"><span class="lang-en">Cultural Preservation & Events</span><span class="lang-fr hidden">Préservation Culturelle & Événements</span></h3></div>
-          <div class="sm:col-span-8"><p class="text-sm text-[var(--ink-900)]/75 leading-relaxed"><span class="lang-en">Traditional arts, community gatherings, and the annual "Journée Poolah" keep the heritage of the Hauts-Plateaux alive for every generation.</span><span class="lang-fr hidden">Arts traditionnels, rassemblements communautaires et la « Journée Poolah » annuelle font vivre le patrimoine des Hauts-Plateaux pour chaque génération.</span></p></div>
+      <p class="text-[var(--ink-900)]/70 max-w-2xl mb-12 text-sm leading-relaxed">
+        <span class="lang-en">Elected for a renewable two-year term, the Bureau administers the Association on behalf of the General Assembly, our supreme decision-making body, which meets at least once a month.</span>
+        <span class="lang-fr hidden">Élu pour un mandat renouvelable de deux ans, le Bureau administre l'Association au nom de l'Assemblée Générale, organe suprême de décision, qui se réunit au moins une fois par mois.</span>
+      </p>
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6">
+        <div class="card-hover bg-[var(--cream-50)] rounded-sm overflow-hidden">
+          <img src="poolah-president-thierry-kamgang.jpg" alt="Thierry Kamgang, President of POOLAH." class="w-full aspect-square object-cover">
+          <div class="p-4">
+            <p class="text-xs uppercase tracking-wide text-[var(--terracotta-500)] font-semibold mb-1"><span class="lang-en">President</span><span class="lang-fr hidden">Président</span></p>
+            <p class="font-display text-base text-[var(--green-900)]">Thierry Kamgang</p>
+          </div>
         </div>
-        <div class="grid grid-cols-1 sm:grid-cols-12 gap-6 py-8 border-t border-[var(--ink-900)]/15 items-start">
-          <div class="sm:col-span-4"><h3 class="font-display text-xl text-[var(--green-900)]"><span class="lang-en">Newcomer Integration</span><span class="lang-fr hidden">Intégration des Nouveaux Arrivants</span></h3></div>
-          <div class="sm:col-span-8"><p class="text-sm text-[var(--ink-900)]/75 leading-relaxed"><span class="lang-en">A welcoming network that helps new members settle into life in Edmonton with guidance and peer connection.</span><span class="lang-fr hidden">Un réseau d'accueil qui aide les nouveaux membres à s'installer à Edmonton grâce à un accompagnement et des liens communautaires.</span></p></div>
+        <div class="card-hover bg-[var(--cream-50)] rounded-sm overflow-hidden">
+          <img src="poolah-board-silhouette.svg" alt="Portrait placeholder for the Vice President." class="w-full aspect-square object-cover">
+          <div class="p-4">
+            <p class="text-xs uppercase tracking-wide text-[var(--terracotta-500)] font-semibold mb-1"><span class="lang-en">Vice President</span><span class="lang-fr hidden">Vice-Président</span></p>
+            <p class="font-display text-base text-[var(--green-900)]">Eric Mepong</p>
+          </div>
         </div>
-        <div class="grid grid-cols-1 sm:grid-cols-12 gap-6 py-8 border-t border-[var(--ink-900)]/15 items-start">
-          <div class="sm:col-span-4"><h3 class="font-display text-xl text-[var(--green-900)]"><span class="lang-en">Solidarity & Mutual Aid</span><span class="lang-fr hidden">Solidarité & Entraide</span></h3></div>
-          <div class="sm:col-span-8"><p class="text-sm text-[var(--ink-900)]/75 leading-relaxed"><span class="lang-en">Members stand together through births, marriages, and bereavements, offering moral, material, and financial support in difficult and joyful moments alike.</span><span class="lang-fr hidden">Les membres se soutiennent lors des naissances, mariages et deuils, offrant un appui moral, matériel et financier dans les moments difficiles comme heureux.</span></p></div>
+        <div class="card-hover bg-[var(--cream-50)] rounded-sm overflow-hidden">
+          <img src="poolah-board-silhouette.svg" alt="Portrait placeholder for the Treasurer." class="w-full aspect-square object-cover">
+          <div class="p-4">
+            <p class="text-xs uppercase tracking-wide text-[var(--terracotta-500)] font-semibold mb-1"><span class="lang-en">Treasurer</span><span class="lang-fr hidden">Trésorier</span></p>
+            <p class="font-display text-base text-[var(--green-900)]">Dominique Biegain Biegain</p>
+          </div>
         </div>
-        <div class="grid grid-cols-1 sm:grid-cols-12 gap-6 py-8 border-t border-[var(--ink-900)]/15 items-start">
-          <div class="sm:col-span-4"><h3 class="font-display text-xl text-[var(--green-900)]"><span class="lang-en">Youth Leadership & Academic Success</span><span class="lang-fr hidden">Leadership des Jeunes & Réussite Scolaire</span></h3></div>
-          <div class="sm:col-span-8"><p class="text-sm text-[var(--ink-900)]/75 leading-relaxed"><span class="lang-en">POOLAH plays a role in our young people's leadership development and academic success, providing the guidance and training they need to thrive in their studies and beyond.</span><span class="lang-fr hidden">POOLAH joue un rôle dans le développement du leadership et la réussite scolaire de nos jeunes, en leur offrant l'accompagnement et la formation nécessaires pour s'épanouir dans leurs études et au-delà.</span></p></div>
+        <div class="card-hover bg-[var(--cream-50)] rounded-sm overflow-hidden">
+          <img src="poolah-board-silhouette.svg" alt="Portrait placeholder for the Secretary General." class="w-full aspect-square object-cover">
+          <div class="p-4">
+            <p class="text-xs uppercase tracking-wide text-[var(--terracotta-500)] font-semibold mb-1"><span class="lang-en">Secretary General</span><span class="lang-fr hidden">Secrétaire Général</span></p>
+            <p class="font-display text-base text-[var(--green-900)]">Alain Leonel Kammogne Djamguen</p>
+          </div>
         </div>
-        <div class="grid grid-cols-1 sm:grid-cols-12 gap-6 py-8 border-t border-b border-[var(--ink-900)]/15 items-start">
-          <div class="sm:col-span-4"><h3 class="font-display text-xl text-[var(--green-900)]"><span class="lang-en">Community Development Projects</span><span class="lang-fr hidden">Projets de Développement Communautaire</span></h3></div>
-          <div class="sm:col-span-8"><p class="text-sm text-[var(--ink-900)]/75 leading-relaxed"><span class="lang-en">Member-proposed initiatives reviewed by the General Assembly, supporting social, economic, educational, and cultural growth. Members with business ideas can also find support here in preparing a plan before any investment.</span><span class="lang-fr hidden">Des initiatives proposées par les membres, examinées par l'Assemblée Générale, au service du développement social, économique, éducatif et culturel. Les membres porteurs d'une idée d'affaires y trouvent aussi un accompagnement pour préparer un plan avant tout investissement.</span></p></div>
+        <div class="card-hover bg-[var(--cream-50)] rounded-sm overflow-hidden">
+          <img src="poolah-board-silhouette.svg" alt="Portrait placeholder for the Chief Audit Executive." class="w-full aspect-square object-cover">
+          <div class="p-4">
+            <p class="text-xs uppercase tracking-wide text-[var(--terracotta-500)] font-semibold mb-1"><span class="lang-en">Chief Audit Executive</span><span class="lang-fr hidden">Chef de l'Audit</span></p>
+            <p class="font-display text-base text-[var(--green-900)]">Raymond Youdom</p>
+          </div>
         </div>
       </div>
-      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mt-14">
-        <div class="card-hover overflow-hidden rounded-sm"><img src="poolah-cultural-day-2026-gathering.jpg" alt="POOLAH members and families gathered at the 2026 Cultural Day in Edmonton." class="w-full h-full object-cover aspect-square"></div>
-        <div class="card-hover overflow-hidden rounded-sm"><img src="poolah-arbre-de-noel-2025.jpg" alt="POOLAH children and families celebrating Arbre de Noël in Edmonton, 2025." class="w-full h-full object-cover aspect-square"></div>
-        <div class="card-hover overflow-hidden rounded-sm"><img src="poolah-borden-park-volunteering-2026.jpg" alt="POOLAH volunteers at a community clean-up at Borden Park, Edmonton, June 2026." class="w-full h-full object-cover aspect-square"></div>
-        <div class="card-hover overflow-hidden rounded-sm"><img src="poolah-food-bank-volunteering.jpg" alt="POOLAH volunteers at Edmonton's Food Bank." class="w-full h-full object-cover aspect-square"></div>
-      </div>
-    </div>
-  </section>
 
-  <section class="bg-[var(--gold-500)] py-12">
-    <div class="max-w-6xl mx-auto px-4 sm:px-8 flex flex-col sm:flex-row items-center justify-between gap-6 text-[var(--ink-900)]">
-      <h3 class="font-display font-semibold text-2xl sm:text-3xl text-center sm:text-left"><span class="lang-en">Want to take part in a program?</span><span class="lang-fr hidden">Envie de participer à un programme ?</span></h3>
-      <a href="contact.html" class="shrink-0 bg-[var(--green-900)] text-[var(--cream-50)] font-semibold px-7 py-3.5 rounded-sm hover:bg-[var(--ink-900)] transition"><span class="lang-en">Get in Touch</span><span class="lang-fr hidden">Nous Contacter</span></a>
+      <div class="mt-16 grid grid-cols-1 sm:grid-cols-3 gap-8">
+        <div>
+          <h3 class="font-display text-lg text-[var(--green-900)] mb-2"><span class="lang-en">General Assembly</span><span class="lang-fr hidden">Assemblée Générale</span></h3>
+          <p class="text-sm text-[var(--ink-900)]/70 leading-relaxed"><span class="lang-en">Our supreme decision-making body, gathering all members at least once a month.</span><span class="lang-fr hidden">Notre organe suprême de décision, réunissant tous les membres au moins une fois par mois.</span></p>
+        </div>
+        <div>
+          <h3 class="font-display text-lg text-[var(--green-900)] mb-2"><span class="lang-en">Executive Bureau</span><span class="lang-fr hidden">Bureau Exécutif</span></h3>
+          <p class="text-sm text-[var(--ink-900)]/70 leading-relaxed"><span class="lang-en">Directs and administers the Association day to day, on the members' behalf.</span><span class="lang-fr hidden">Dirige et administre l'Association au quotidien, au nom des membres.</span></p>
+        </div>
+        <div>
+          <h3 class="font-display text-lg text-[var(--green-900)] mb-2"><span class="lang-en">Commissions & Committees</span><span class="lang-fr hidden">Commissions et Comités</span></h3>
+          <p class="text-sm text-[var(--ink-900)]/70 leading-relaxed"><span class="lang-en">Created as needed for specific activities, such as the Culture Commission.</span><span class="lang-fr hidden">Créés selon les besoins pour des activités spécifiques, comme la Commission Culture.</span></p>
+        </div>
+      </div>
     </div>
   </section>
 
