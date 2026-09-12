@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Home | POOLAH Social and Cultural Association of Alberta</title>
+<link rel="canonical" href="https://poolahalberta.github.io/">
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" type="image/jpeg" href="/poolah-logo.jpg">
+<style>
+  :root{
+    --green-900:#132A1D;
+    --green-800:#1E3D28;
+    --forest-700:#35603F;
+    --forest-600:#4C7C55;
+    --gold-500:#C6981F;
+    --gold-400:#D9AE41;
+    --terracotta-500:#AE5122;
+    --cream-50:#F6EFE1;
+    --cream-100:#EFE4CC;
+    --ink-900:#181410;
+  }
+  body{ font-family:'Work Sans', sans-serif; background:var(--cream-50); color:var(--ink-900); }
+  .font-display{ font-family:'Fraunces', serif; }
+  .diamond-row{
+    height:14px;
+    background-image: linear-gradient(135deg, var(--gold-500) 25%, transparent 25%),
+                       linear-gradient(225deg, var(--gold-500) 25%, transparent 25%),
+                       linear-gradient(45deg, var(--gold-500) 25%, transparent 25%),
+                       linear-gradient(315deg, var(--gold-500) 25%, transparent 25%);
+    background-position: 0 0, 7px 0, 7px -7px, 0px 7px;
+    background-size: 14px 14px;
+    background-repeat: repeat-x;
+  }
+  .rule{ height:3px; background: linear-gradient(90deg, var(--gold-500), transparent); }
+  .header-text-shadow, .header-text-shadow *{ text-shadow: 0 2px 14px rgba(0,0,0,0.6), 0 1px 3px rgba(0,0,0,0.5); }
+
+  /* --- Animation & motion --- */
+  .navlink{ position:relative; padding-bottom:2px; }
+  .navlink::after{ content:''; position:absolute; left:0; bottom:-4px; width:0; height:2px; background:var(--gold-500); transition:width .3s ease; }
+  .navlink:hover::after, .navlink.current::after{ width:100%; }
+  .navlink.current{ color: var(--terracotta-500); }
+
+  .reveal{ opacity:0; transform:translateY(28px); transition:opacity .7s cubic-bezier(.2,.7,.3,1), transform .7s cubic-bezier(.2,.7,.3,1); }
+  .reveal.visible{ opacity:1; transform:translateY(0); }
+
+  a, button{ transition: transform .25s ease, box-shadow .25s ease, background-color .25s ease, border-color .25s ease, opacity .25s ease; }
+  a[class*="rounded-sm"]:hover, button[class*="rounded-sm"]:hover{ transform: translateY(-3px); box-shadow: 0 14px 28px rgba(19,42,29,0.18); }
+  .card-hover:hover{ transform: translateY(-4px); box-shadow: 0 16px 32px rgba(19,42,29,0.14); }
+
+  @keyframes pulseGlow{
+    0%, 100%{ box-shadow: 0 0 0 0 rgba(198,152,31,0.55); }
+    50%{ box-shadow: 0 0 0 12px rgba(198,152,31,0); }
+  }
+  .cta-pulse{ animation: pulseGlow 2.6s ease-in-out infinite; }
+
+  @keyframes floatSlow{
+    0%, 100%{ transform: translateY(0); }
+    50%{ transform: translateY(-8px); }
+  }
+  .float-slow{ animation: floatSlow 5s ease-in-out infinite; }
+
+  @keyframes shimmerDiamonds{
+    0%{ background-position: 0 0, 7px 0, 7px -7px, 0px 7px; }
+    100%{ background-position: 140px 0, 147px 0, 147px -7px, 140px 7px; }
+  }
+  .diamond-row{ animation: shimmerDiamonds 6s linear infinite; }
+</style>
+<script>
+  function switchLang(lang) {
+    document.querySelectorAll('.lang-en').forEach(el => el.classList.toggle('hidden', lang !== 'en'));
+    document.querySelectorAll('.lang-fr').forEach(el => el.classList.toggle('hidden', lang !== 'fr'));
+    document.getElementById('btn-en').classList.toggle('opacity-100', lang === 'en');
+    document.getElementById('btn-en').classList.toggle('opacity-40', lang !== 'en');
+    document.getElementById('btn-fr').classList.toggle('opacity-100', lang === 'fr');
+    document.getElementById('btn-fr').classList.toggle('opacity-40', lang !== 'fr');
+    try { localStorage.setItem('poolah_lang', lang); } catch (e) {}
+    try {
+      var here = new URL(window.location.href);
+      here.searchParams.set('lang', lang);
+      window.history.replaceState({}, '', here);
+    } catch (e) {}
+    document.querySelectorAll('a[href^="/"]').forEach(function (a) {
+      try {
+        var url = new URL(a.getAttribute('href'), window.location.href);
+        url.searchParams.set('lang', lang);
+        a.setAttribute('href', url.pathname + '?' + url.searchParams.toString());
+      } catch (e) {}
+    });
+  }
+  function toggleMobileMenu() {
+    document.getElementById('mobile-menu').classList.toggle('hidden');
+  }
+  function detectLang() {
+    try {
+      var fromUrl = new URLSearchParams(window.location.search).get('lang');
+      if (fromUrl === 'en' || fromUrl === 'fr') return fromUrl;
+    } catch (e) {}
+    try {
+      var fromStorage = localStorage.getItem('poolah_lang');
+      if (fromStorage === 'en' || fromStorage === 'fr') return fromStorage;
+    } catch (e) {}
+    return 'en';
+  }
+  document.addEventListener('DOMContentLoaded', function () {
+    switchLang(detectLang());
+
+    var targets = document.querySelectorAll('section, .reveal-item');
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    targets.forEach(function (el) {
+      el.classList.add('reveal');
+      observer.observe(el);
+    });
+  });
+</script>
+</head>
+<body class="antialiased selection:bg-[var(--gold-400)] selection:text-[var(--ink-900)]">
+
+  <!-- Top utility bar (no email shown) -->
+  <div class="bg-[var(--green-900)] text-[var(--cream-100)] text-xs py-2 px-4 sm:px-8">
+    <div class="max-w-6xl mx-auto flex justify-between items-center">
+      <span class="opacity-80">9818 44 Ave NW, Edmonton, AB T6E 5E5</span>
+      <div class="flex items-center gap-3 font-semibold tracking-wide">
+        <button id="btn-en" onclick="switchLang('en')" class="opacity-100 transition">EN</button>
+        <span class="opacity-30">/</span>
+        <button id="btn-fr" onclick="switchLang('fr')" class="opacity-40 transition">FR</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="bg-[var(--cream-50)] sticky top-0 z-40 border-b border-[var(--ink-900)]/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+      <a href="/" class="flex items-center gap-3 shrink-0">
+        <img src="/poolah-logo.jpg" alt="POOLAH" class="w-12 h-12 rounded-full object-cover border-2 border-[var(--green-900)]">
+        <div class="leading-tight">
+          <span class="block font-display font-semibold text-lg text-[var(--green-900)]">POOLAH</span>
+          <span class="block text-[11px] uppercase tracking-[0.15em] text-[var(--terracotta-500)]">Hauts-Plateaux · Edmonton</span>
+        </div>
+      </a>
+      <nav class="hidden xl:flex gap-5 text-sm font-medium text-[var(--ink-900)]/80 whitespace-nowrap">
+        <a href="/" class="navlink current hover:text-[var(--terracotta-500)] transition"><span class="lang-en">Home</span><span class="lang-fr hidden">Accueil</span></a>
+        <a href="/organization/" class="navlink hover:text-[var(--terracotta-500)] transition"><span class="lang-en">Our Organization</span><span class="lang-fr hidden">Notre Organisation</span></a>
+        <a href="/programs/" class="navlink hover:text-[var(--terracotta-500)] transition"><span class="lang-en">Programs</span><span class="lang-fr hidden">Programmes</span></a>
+        <a href="/board/" class="navlink hover:text-[var(--terracotta-500)] transition"><span class="lang-en">Board</span><span class="lang-fr hidden">Bureau</span></a>
+        <a href="/events/" class="navlink hover:text-[var(--terracotta-500)] transition"><span class="lang-en">Events</span><span class="lang-fr hidden">Événements</span></a>
+        <a href="/getinvolved/" class="navlink hover:text-[var(--terracotta-500)] transition"><span class="lang-en">Get Involved</span><span class="lang-fr hidden">Impliquez-Vous</span></a>
+        <a href="/contact/" class="navlink hover:text-[var(--terracotta-500)] transition"><span class="lang-en">Contact</span><span class="lang-fr hidden">Contact</span></a>
+      </nav>
+      <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+        <a href="/join/" class="cta-pulse hidden sm:inline-block bg-[var(--terracotta-500)] hover:bg-[var(--green-900)] text-white text-xs font-semibold px-4 lg:px-5 py-2.5 rounded-sm transition whitespace-nowrap">
+          <span class="lang-en">Join Us</span><span class="lang-fr hidden">Rejoignez-nous</span>
+        </a>
+        <a href="/support/" class="bg-[var(--gold-500)] hover:bg-[var(--gold-400)] text-[var(--ink-900)] text-xs font-semibold px-3 lg:px-5 py-2.5 rounded-sm transition whitespace-nowrap">
+          <span class="lang-en">Support POOLAH</span><span class="lang-fr hidden">Soutenir POOLAH</span>
+        </a>
+        <button onclick="toggleMobileMenu()" aria-label="Menu" class="xl:hidden w-10 h-10 flex flex-col items-center justify-center gap-1.5 border border-[var(--ink-900)]/20 rounded-sm shrink-0">
+          <span class="block w-5 h-0.5 bg-[var(--green-900)]"></span>
+          <span class="block w-5 h-0.5 bg-[var(--green-900)]"></span>
+          <span class="block w-5 h-0.5 bg-[var(--green-900)]"></span>
+        </button>
+      </div>
+    </div>
+    <div id="mobile-menu" class="hidden xl:hidden border-t border-[var(--ink-900)]/10 bg-[var(--cream-50)]">
+      <nav class="flex flex-col px-4 sm:px-8 py-4 gap-4 text-sm font-medium text-[var(--ink-900)]/80">
+        <a href="/" onclick="toggleMobileMenu()" class="navlink current hover:text-[var(--terracotta-500)] transition"><span class="lang-en">Home</span><span class="lang-fr hidden">Accueil</span></a>
+        <a href="/organization/" onclick="toggleMobileMenu()" class="navlink hover:text-[var(--terracotta-500)] transition"><span class="lang-en">Our Organization</span><span class="lang-fr hidden">Notre Organisation</span></a>
+        <a href="/programs/" onclick="toggleMobileMenu()" class="navlink hover:text-[var(--terracotta-500)] transition"><span class="lang-en">Programs</span><span class="lang-fr hidden">Programmes</span></a>
+        <a href="/board/" onclick="toggleMobileMenu()" class="navlink hover:text-[var(--terracotta-500)] transition"><span class="lang-en">Board</span><span class="lang-fr hidden">Bureau</span></a>
+        <a href="/events/" onclick="toggleMobileMenu()" class="navlink hover:text-[var(--terracotta-500)] transition"><span class="lang-en">Events</span><span class="lang-fr hidden">Événements</span></a>
+        <a href="/getinvolved/" onclick="toggleMobileMenu()" class="navlink hover:text-[var(--terracotta-500)] transition"><span class="lang-en">Get Involved</span><span class="lang-fr hidden">Impliquez-Vous</span></a>
+        <a href="/contact/" onclick="toggleMobileMenu()" class="navlink hover:text-[var(--terracotta-500)] transition"><span class="lang-en">Contact</span><span class="lang-fr hidden">Contact</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="relative bg-[var(--green-900)] text-[var(--cream-50)] overflow-hidden">
+    <div class="absolute inset-0 z-0">
+      <img src="/poolah-hauts-plateaux-cameroun.jpg" alt="Aerial view of the Hauts-Plateaux region of western Cameroon." class="w-full h-full object-cover opacity-70">
+      <div class="absolute inset-0 bg-gradient-to-r from-[var(--green-900)]/70 via-[var(--green-900)]/35 to-[var(--green-900)]/15"></div>
+    </div>
+    <div class="diamond-row relative z-10"></div>
+    <div class="max-w-6xl mx-auto px-4 sm:px-8 py-20 lg:py-28 relative z-10 header-text-shadow">
+      <img src="/poolah-logo.jpg" alt="POOLAH — Hauts-Plateaux de l'Ouest Cameroun, Edmonton" class="float-slow w-24 h-24 sm:w-28 sm:h-28 rounded-full mb-8 border-2 border-[var(--gold-400)]/60">
+      <p class="text-[var(--gold-400)] text-sm font-semibold tracking-wide mb-4">
+        <span class="lang-en">Poolah Social and Cultural Association of Alberta</span>
+        <span class="lang-fr hidden">Association Sociale et Culturelle Poolah de l'Alberta</span>
+      </p>
+      <h1 class="font-display font-semibold text-4xl sm:text-5xl lg:text-6xl leading-[1.08] max-w-3xl mb-6">
+        <span class="lang-en">United by our roots, strong through our actions.</span>
+        <span class="lang-fr hidden">Unis par nos racines, forts par nos actions.</span>
+      </h1>
+      <p class="text-[var(--cream-100)]/85 text-base sm:text-lg max-w-2xl leading-relaxed mb-4">
+        <span class="lang-en">POOLAH brings together natives, friends, and supporters of the Hauts-Plateaux department who live in Edmonton and the surrounding area — sustaining our culture, practising mutual aid, and building a shared future here in Alberta.</span>
+        <span class="lang-fr hidden">POOLAH regroupe les ressortissants, amis et sympathisants du département des Hauts-Plateaux résidant à Edmonton et ses environs — pour faire vivre notre culture, pratiquer l'entraide et bâtir un avenir commun ici en Alberta.</span>
+      </p>
+      <p class="font-display italic text-[var(--gold-400)] text-lg mb-10">Poolah… Kuicheu</p>
+      <div class="flex flex-wrap gap-4">
+        <a href="/join/" class="cta-pulse bg-[var(--gold-500)] hover:bg-[var(--gold-400)] text-[var(--ink-900)] font-semibold px-7 py-3.5 rounded-sm transition">
+          <span class="lang-en">Become a Member</span><span class="lang-fr hidden">Devenir Membre</span>
+        </a>
+        <a href="/organization/" class="border border-[var(--cream-50)]/40 hover:border-[var(--cream-50)] text-[var(--cream-50)] font-semibold px-7 py-3.5 rounded-sm transition">
+          <span class="lang-en">Learn Our Story</span><span class="lang-fr hidden">Notre Histoire</span>
+        </a>
+      </div>
+    </div>
+    <div class="diamond-row relative z-10"></div>
+  </section>
+
+  <!-- Community numbers -->
+  <section class="bg-[var(--forest-700)] text-[var(--cream-50)] py-10">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8 grid grid-cols-2 gap-8 text-center max-w-md sm:max-w-none mx-auto">
+      <div>
+        <p class="font-display text-4xl sm:text-5xl font-semibold text-[var(--gold-400)]">50+</p>
+        <p class="text-sm text-[var(--cream-100)]/80 mt-1"><span class="lang-en">Members</span><span class="lang-fr hidden">Membres</span></p>
+      </div>
+      <div>
+        <p class="font-display text-4xl sm:text-5xl font-semibold text-[var(--gold-400)]">35</p>
+        <p class="text-sm text-[var(--cream-100)]/80 mt-1"><span class="lang-en">Members Who Have Volunteered</span><span class="lang-fr hidden">Membres Ayant Fait du Bénévolat</span></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section teasers -->
+  <section class="py-20 lg:py-28">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8">
+      <h2 class="font-display font-semibold text-3xl sm:text-4xl text-[var(--green-900)] mb-14">
+        <span class="lang-en">Find Your Way Around</span><span class="lang-fr hidden">Explorez POOLAH</span>
+      </h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-px bg-[var(--ink-900)]/10">
+        <a href="/organization/" class="card-hover bg-[var(--cream-50)] hover:bg-[var(--cream-100)] p-8 transition group">
+          <h3 class="font-display text-xl text-[var(--green-900)] mb-2"><span class="lang-en">Our Organization</span><span class="lang-fr hidden">Notre Organisation</span></h3>
+          <p class="text-sm text-[var(--ink-900)]/70 mb-4 leading-relaxed">
+            <span class="lang-en">Our mission, values, and official registration as a non-profit under the Societies Act of Alberta.</span>
+            <span class="lang-fr hidden">Notre mission, nos valeurs et notre enregistrement officiel sous le Societies Act of Alberta.</span>
+          </p>
+          <span class="text-[var(--terracotta-500)] text-sm font-semibold group-hover:underline"><span class="lang-en">Read more →</span><span class="lang-fr hidden">Lire la suite →</span></span>
+        </a>
+        <a href="/programs/" class="card-hover bg-[var(--cream-50)] hover:bg-[var(--cream-100)] p-8 transition group">
+          <h3 class="font-display text-xl text-[var(--green-900)] mb-2"><span class="lang-en">Our Programs</span><span class="lang-fr hidden">Nos Programmes</span></h3>
+          <p class="text-sm text-[var(--ink-900)]/70 mb-4 leading-relaxed">
+            <span class="lang-en">Cultural preservation, newcomer integration, solidarity, and community development.</span>
+            <span class="lang-fr hidden">Préservation culturelle, intégration des nouveaux arrivants, solidarité et développement.</span>
+          </p>
+          <span class="text-[var(--terracotta-500)] text-sm font-semibold group-hover:underline"><span class="lang-en">Read more →</span><span class="lang-fr hidden">Lire la suite →</span></span>
+        </a>
+        <a href="/board/" class="card-hover bg-[var(--cream-50)] hover:bg-[var(--cream-100)] p-8 transition group">
+          <h3 class="font-display text-xl text-[var(--green-900)] mb-2"><span class="lang-en">Our Board</span><span class="lang-fr hidden">Notre Bureau</span></h3>
+          <p class="text-sm text-[var(--ink-900)]/70 mb-4 leading-relaxed">
+            <span class="lang-en">Meet the Executive Bureau elected to lead the Association.</span>
+            <span class="lang-fr hidden">Découvrez le Bureau Exécutif élu à la tête de l'Association.</span>
+          </p>
+          <span class="text-[var(--terracotta-500)] text-sm font-semibold group-hover:underline"><span class="lang-en">Meet the board →</span><span class="lang-fr hidden">Voir le bureau →</span></span>
+        </a>
+        <a href="/events/" class="card-hover bg-[var(--cream-50)] hover:bg-[var(--cream-100)] p-8 transition group">
+          <h3 class="font-display text-xl text-[var(--green-900)] mb-2"><span class="lang-en">Events</span><span class="lang-fr hidden">Événements</span></h3>
+          <p class="text-sm text-[var(--ink-900)]/70 mb-4 leading-relaxed">
+            <span class="lang-en">Our monthly General Assembly, and what's coming up next in 2026.</span>
+            <span class="lang-fr hidden">Notre Assemblée Générale mensuelle, et les prochains rendez-vous de 2026.</span>
+          </p>
+          <span class="text-[var(--terracotta-500)] text-sm font-semibold group-hover:underline"><span class="lang-en">See what's on →</span><span class="lang-fr hidden">Voir le programme →</span></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Community gallery -->
+  <section class="py-20 lg:py-28 bg-[var(--cream-100)]">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8">
+      <h2 class="font-display font-semibold text-3xl sm:text-4xl text-[var(--green-900)] mb-3">
+        <span class="lang-en">Our Community in Action</span><span class="lang-fr hidden">Notre Communauté en Action</span>
+      </h2>
+      <p class="text-[var(--ink-900)]/70 max-w-2xl mb-12">
+        <span class="lang-en">From cultural celebrations to volunteer initiatives, POOLAH is built through the participation, generosity, and commitment of its members and friends.</span>
+        <span class="lang-fr hidden">Des célébrations culturelles aux initiatives bénévoles, POOLAH se construit grâce à la participation, à la générosité et à l'engagement de ses membres et amis.</span>
+      </p>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
+        <div class="card-hover overflow-hidden rounded-sm col-span-2 row-span-2">
+          <img src="/poolah-cultural-day-2026-gathering.jpg" alt="POOLAH members and families gathered at the 2026 Cultural Day in Edmonton." class="w-full h-full object-cover aspect-square md:aspect-auto">
+        </div>
+        <div class="card-hover overflow-hidden rounded-sm">
+          <img src="/poolah-arbre-de-noel-2025.jpg" alt="POOLAH children and families celebrating Arbre de Noël in Edmonton, 2025." class="w-full h-full object-cover aspect-square">
+        </div>
+        <div class="card-hover overflow-hidden rounded-sm">
+          <img src="/poolah-food-bank-volunteering.jpg" alt="POOLAH volunteers at Edmonton's Food Bank." class="w-full h-full object-cover aspect-square">
+        </div>
+        <div class="card-hover overflow-hidden rounded-sm">
+          <img src="/poolah-borden-park-volunteering-2026.jpg" alt="POOLAH volunteers at a community clean-up at Borden Park, Edmonton, June 2026." class="w-full h-full object-cover aspect-square">
+        </div>
+        <div class="card-hover overflow-hidden rounded-sm">
+          <img src="/poolah-cultural-day-2026-toghu.jpg" alt="POOLAH members in traditional Toghu attire at the 2026 Cultural Day in Edmonton." class="w-full h-full object-cover aspect-square">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Journée Poolah callout -->
+  <section class="bg-[var(--gold-500)] py-12">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8 flex flex-col sm:flex-row items-center justify-between gap-6 text-[var(--ink-900)]">
+      <h3 class="font-display font-semibold text-2xl sm:text-3xl text-center sm:text-left">
+        <span class="lang-en">Journée Poolah — our annual day of culture and connection.</span>
+        <span class="lang-fr hidden">Journée Poolah — notre journée annuelle de culture et de retrouvailles.</span>
+      </h3>
+      <a href="/events/" class="shrink-0 bg-[var(--green-900)] text-[var(--cream-50)] font-semibold px-7 py-3.5 rounded-sm hover:bg-[var(--ink-900)] transition">
+        <span class="lang-en">See Events</span><span class="lang-fr hidden">Voir les Événements</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- Get involved strip -->
+  <section class="py-20 lg:py-28 bg-[var(--green-900)] text-[var(--cream-50)]">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8 text-center">
+      <h2 class="font-display font-semibold text-3xl sm:text-4xl mb-4">
+        <span class="lang-en">Ready to Join POOLAH?</span><span class="lang-fr hidden">Prêt à Rejoindre POOLAH ?</span>
+      </h2>
+      <p class="text-[var(--cream-100)]/75 max-w-xl mx-auto mb-8">
+        <span class="lang-en">Become a member, volunteer, or partner with us — see how you can get involved.</span>
+        <span class="lang-fr hidden">Devenez membre, bénévole ou partenaire — découvrez comment vous impliquer.</span>
+      </p>
+      <a href="/getinvolved/" class="cta-pulse inline-block bg-[var(--gold-500)] hover:bg-[var(--gold-400)] text-[var(--ink-900)] font-semibold px-8 py-4 rounded-sm transition">
+        <span class="lang-en">Get Involved</span><span class="lang-fr hidden">Impliquez-Vous</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- Support POOLAH strip -->
+  <section class="py-16 bg-[var(--cream-100)] border-t-2 border-[var(--gold-500)]">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+      <div>
+        <h3 class="font-display font-semibold text-2xl sm:text-3xl text-[var(--green-900)] mb-2">
+          <span class="lang-en">Support POOLAH</span><span class="lang-fr hidden">Soutenir POOLAH</span>
+        </h3>
+        <p class="text-sm text-[var(--ink-900)]/70 max-w-lg">
+          <span class="lang-en">Your financial contribution helps sustain our culture, solidarity, newcomer support, and youth programs.</span>
+          <span class="lang-fr hidden">Votre contribution financière aide à soutenir notre culture, notre solidarité, notre soutien aux nouveaux arrivants et nos programmes jeunesse.</span>
+        </p>
+      </div>
+      <a href="/support/" class="shrink-0 bg-[var(--terracotta-500)] hover:bg-[var(--green-900)] text-white font-semibold px-8 py-4 rounded-sm transition whitespace-nowrap">
+        <span class="lang-en">Send a Contribution</span><span class="lang-fr hidden">Faire une Contribution</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer (no email displayed) -->
+  <footer class="bg-[var(--green-900)] text-[var(--cream-100)]/60 py-10 text-xs text-center">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8 space-y-2">
+      <img src="/poolah-logo.jpg" alt="POOLAH" class="w-10 h-10 rounded-full mx-auto mb-3 opacity-90">
+      <p>&copy; 2026 Poolah Social and Cultural Association of Alberta. <span class="lang-en">Registered under the Societies Act of Alberta.</span><span class="lang-fr hidden">Enregistrée sous le Societies Act of Alberta.</span></p>
+      <p class="pt-2 flex justify-center gap-5 flex-wrap">
+        <a href="/" class="hover:text-[var(--gold-400)] transition"><span class="lang-en">Home</span><span class="lang-fr hidden">Accueil</span></a>
+        <a href="/organization/" class="hover:text-[var(--gold-400)] transition"><span class="lang-en">Our Organization</span><span class="lang-fr hidden">Notre Organisation</span></a>
+        <a href="/programs/" class="hover:text-[var(--gold-400)] transition"><span class="lang-en">Programs</span><span class="lang-fr hidden">Programmes</span></a>
+        <a href="/board/" class="hover:text-[var(--gold-400)] transition"><span class="lang-en">Board</span><span class="lang-fr hidden">Bureau</span></a>
+        <a href="/events/" class="hover:text-[var(--gold-400)] transition"><span class="lang-en">Events</span><span class="lang-fr hidden">Événements</span></a>
+        <a href="/getinvolved/" class="hover:text-[var(--gold-400)] transition"><span class="lang-en">Get Involved</span><span class="lang-fr hidden">Impliquez-Vous</span></a>
+        <a href="/contact/" class="hover:text-[var(--gold-400)] transition"><span class="lang-en">Contact</span><span class="lang-fr hidden">Contact</span></a>
+      </p>
+      <p class="pt-1">
+        <a href="/support/" class="inline-block text-[var(--gold-400)] font-semibold hover:underline"><span class="lang-en">Support POOLAH</span><span class="lang-fr hidden">Soutenir POOLAH</span></a>
+      </p>
+      <p class="pt-3">
+        <a href="https://www.facebook.com/share/1Bsxwn1jUP/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 hover:text-[var(--gold-400)] transition">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5.02 3.66 9.18 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.51 1.49-3.9 3.77-3.9 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.89h2.78l-.44 2.91h-2.34V22c4.78-.76 8.44-4.92 8.44-9.94Z"/></svg>
+          <span>Facebook</span>
+        </a>
+      </p>
+    </div>
+  </footer>
+
+</body>
+</html>
